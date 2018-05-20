@@ -10,6 +10,12 @@ lua::LuaObject::LuaObject()
 }
 
 
+lua::LuaObject::~LuaObject()
+{
+
+}
+
+
 // Pushes the object last pulled from the stack by this LuaObject
 void lua::LuaObject::Push()
 {
