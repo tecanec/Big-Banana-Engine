@@ -8,9 +8,9 @@ namespace lua
 		LuaObject();
 		~LuaObject();
 
-		void Push();
-		void Pull();
+		void Get();
+		void Set();
 	private:
-		char key;
+		bool hasValue;
 	};
 }
