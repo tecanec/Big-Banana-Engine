@@ -22,24 +22,28 @@ function meta:Test()
 	print(self.text)
 end
 
-function meta:Update(number)
-	print("This happens every frame!")
-	print(number)
+function meta:Update(number, thingytwo)
+	print("This happens every frame, and my name is " .. self.name)
+	print(tostring(number) .. " " .. tostring(thingytwo))
 end
 
 A = {}
 A = setmetatable(A, {__index = meta})
 A.text = "Hi, I am A!"
+A.name = "A"
 B = {}
 B = setmetatable(B, {__index = meta})
 B.text = "Hi, I am B!"
+B.name = "B"
 C = {}
 C = setmetatable(C, {__index = meta})
 C.text = "Hi, I am C!"
+C.name = "C"
 
 A:Test()
 B:Test()
 makeActiveObject(A);
+makeActiveObject(B);
 )lua");
 	lua_call(lua::L, 0, 0);
 	lua_getglobal(lua::L, "C");
@@ -65,7 +69,8 @@ makeActiveObject(A);
 		}
 
 		lua_pushinteger(lua::L, thing++);
-		AO::RunMethodOnAll("Update", 1);
+		lua_pushinteger(lua::L, thing%50);
+		AO::RunMethodOnAll("Update", 2);
 
 		window.display();
 	}
