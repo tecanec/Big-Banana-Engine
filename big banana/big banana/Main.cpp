@@ -1,5 +1,7 @@
 #include <SFML\Graphics.hpp>
 #include <Windows.h>
+#include "LuaPackage.h"
+#include "LuaAccess.h"
 
 void main()
 {
@@ -25,6 +27,8 @@ void main()
 				break;
 			}
 		}
+
+		window.display();
 	}
 
 	window.close();
