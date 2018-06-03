@@ -3,7 +3,7 @@
 #include "LuaPackage.h"
 #include "LuaAccess.h"
 
-void main()
+int main()
 {
 #ifndef DEBUG
 	FreeConsole();
@@ -11,6 +11,32 @@ void main()
 
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "Game");
 	window.setVerticalSyncEnabled(true);
+
+	luaL_openlibs(lua::L);
+	luaL_loadstring(lua::L, R"lua(
+meta = {}
+function meta:Test()
+	print("banana")
+	print(self.text)
+end
+
+A = {}
+A = setmetatable(A, {__index = meta})
+A.text = "Hi, I am A!"
+B = {}
+B = setmetatable(B, {__index = meta})
+B.text = "Hi, I am B!"
+C = {}
+C = setmetatable(C, {__index = meta})
+C.text = "Hi, I am C!"
+
+A:Test()
+B:Test()
+)lua");
+	lua_call(lua::L, 0, 0);
+	lua_getglobal(lua::L, "C");
+	lua_pushstring(lua::L, "Test");
+	lua::runMethod(-2, 0, 0);
 
 	bool gameStillGoing = true;
 	while (gameStillGoing)
@@ -32,4 +58,8 @@ void main()
 	}
 
 	window.close();
+
+	lua_close(lua::L);
+
+	return 0;
 }

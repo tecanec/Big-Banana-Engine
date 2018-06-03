@@ -1,8 +1,9 @@
-#include "LuaAccess.h"
+#include <iostream>
 #include "LuaPackage.h"
+#include "LuaAccess.h"
 
 
-lua_State *L = luaL_newstate();
+lua_State *lua::L = luaL_newstate();
 
 
 lua::LuaObject::LuaObject()
@@ -37,4 +38,15 @@ void lua::LuaObject::Set()
 	lua_settable(L, LUA_REGISTRYINDEX);
 	hasValue = !lua_isnil(L, -1);
 	lua_pop(L, 1);
+}
+
+
+
+void lua::runMethod(int table, int nargs, int nresults)
+{
+	lua_gettable(L, table);
+	lua_insert(L, -(nargs + 1));
+	lua_pushvalue(L, table);
+	lua_insert(L, -(nargs + 1));
+	lua_call(L, nargs + 1, nresults);
 }
