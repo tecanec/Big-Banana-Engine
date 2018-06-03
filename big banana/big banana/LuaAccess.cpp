@@ -17,7 +17,7 @@ lua::LuaObject::~LuaObject()
 }
 
 
-// Pushes the object last pulled from the stack by this LuaObject
+// Pushes the object last pulled from the stack by this LuaObject using Set()
 void lua::LuaObject::Get()
 {
 	if (hasValue)
@@ -30,7 +30,7 @@ void lua::LuaObject::Get()
 }
 
 
-// Takes the object on the top of the stack holds onto it so that it can be retrieved with Push()
+// Takes the object on the top of the stack and holds onto it so that it can be retrieved with Get()
 void lua::LuaObject::Set()
 {
 	lua_pushlightuserdata(L, (void*)this);
@@ -38,6 +38,12 @@ void lua::LuaObject::Set()
 	lua_settable(L, LUA_REGISTRYINDEX);
 	hasValue = !lua_isnil(L, -1);
 	lua_pop(L, 1);
+}
+
+
+bool lua::LuaObject::HasValue()
+{
+	return hasValue;
 }
 
 

@@ -13,11 +13,13 @@
   <ItemGroup>
     <ClCompile Include="LuaAccess.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ActiveObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActiveObjectManager.h" />
     <ClInclude Include="LuaAccess.h" />
     <ClInclude Include="LuaPackage.h" />
   </ItemGroup>

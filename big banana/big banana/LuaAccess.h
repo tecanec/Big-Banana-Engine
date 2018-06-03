@@ -10,10 +10,13 @@ namespace lua
 		LuaObject();
 		~LuaObject();
 
-		// Pushes the object last pulled from the stack by this LuaObject
+		// Pushes the object last pulled from the stack by this LuaObject using Set()
 		void Get();
-		// Takes the object on the top of the stack holds onto it so that it can be retrieved with Push()
+		// Takes the object on the top of the stack and holds onto it so that it can be retrieved with Get()
 		void Set();
+
+		// Does this have a value yet?
+		bool HasValue();
 	private:
 		bool hasValue;
 	};
